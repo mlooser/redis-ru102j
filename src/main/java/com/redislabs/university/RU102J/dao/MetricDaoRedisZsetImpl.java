@@ -51,6 +51,9 @@ public class MetricDaoRedisZsetImpl implements MetricDao {
         // START Challenge #2
         String metricKey = RedisSchema.getDayMetricKey(siteId, unit, dateTime);
         Integer minuteOfDay = getMinuteOfDay(dateTime);
+        String member = MeasurementMinute.toString(value,minuteOfDay);
+        jedis.zadd(metricKey,minuteOfDay,member);
+
         // END Challenge #2
     }
 
@@ -152,6 +155,9 @@ public class MetricDaoRedisZsetImpl implements MetricDao {
      * Also rounds decimals before storing them.
      */
     public static class MeasurementMinute {
+
+        private static DecimalFormat FORMAT = new DecimalFormat("#.##");
+
         private final Double measurement;
         private final Integer minuteOfDay;
         private final DecimalFormat decimalFormat;
@@ -186,6 +192,10 @@ public class MetricDaoRedisZsetImpl implements MetricDao {
         public String toString() {
             return decimalFormat.format(measurement) + ':' +
                     String.valueOf(minuteOfDay);
+        }
+
+        public static String toString(Double measurement, Integer minutesOfDay){
+            return FORMAT.format(measurement) + ':' + String.valueOf(minutesOfDay);
         }
     }
 }
