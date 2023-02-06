@@ -19,6 +19,11 @@ public class RedisSchema {
         return KeyHelper.getKey("sites:info:" + siteId);
     }
 
+    static Long getSiteIdFromHashKey(String key){
+        String split[] = key.split(":");
+        return Long.valueOf(split[3]);
+    }
+
     // sites:ids
     // Redis type: set
     public static String getSiteIDsKey() {

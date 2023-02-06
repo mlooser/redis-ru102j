@@ -97,9 +97,8 @@ public class SiteDaoRedisImplTest {
      * Challenge #1 Part 1. Use this test case to
      * implement the challenge in Chapter 1.
      */
-    @Ignore
     @Test
-    public void findAllWithMultipleSites() {
+    public void findAllWithMultip£leSites() {
         SiteDaoRedisImpl dao = new SiteDaoRedisImpl(jedisPool);
         // Insert all sites
         for (Site site : sites) {
@@ -113,7 +112,6 @@ public class SiteDaoRedisImplTest {
      * Challenge #1 Part 2. Use this test case to
      * implement the challenge in Chapter 1.
      */
-    @Ignore
     @Test
     public void findAllWithEmptySites() {
         SiteDaoRedisImpl dao = new SiteDaoRedisImpl(jedisPool);
