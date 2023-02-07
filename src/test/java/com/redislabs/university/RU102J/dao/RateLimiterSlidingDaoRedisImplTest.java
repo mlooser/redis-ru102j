@@ -47,7 +47,6 @@ public class RateLimiterSlidingDaoRedisImplTest {
         keyManager.deleteKeys(jedis);
     }
 
-    @Ignore
     @Test
     public void hit() {
         int exceptionCount = 0;
@@ -64,12 +63,11 @@ public class RateLimiterSlidingDaoRedisImplTest {
         assertThat(exceptionCount, is(0));
     }
 
-    @Ignore
     @Test
-    public void hitOutsideLimit() {
+    public void hitOutsideLimit() throws InterruptedException {
         int exceptionCount = 0;
         RateLimiter limiter = new RateLimiterSlidingDaoRedisImpl(jedisPool,
-                100, 10);
+                1000, 10);
         for (int i=0; i<12; i++) {
             try {
                 limiter.hit("foo");
@@ -81,7 +79,6 @@ public class RateLimiterSlidingDaoRedisImplTest {
         assertThat(exceptionCount, is(2));
     }
 
-    @Ignore
     @Test
     public void hitOutsideWindow() throws InterruptedException {
         int exceptionCount = 0;
